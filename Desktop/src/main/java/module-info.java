@@ -10,6 +10,8 @@ module com.client.desktop {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires org.json;
+    requires Java.WebSocket;
 
     opens com.client to javafx.fxml;
     exports com.client;
