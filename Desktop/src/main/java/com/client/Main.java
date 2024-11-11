@@ -30,11 +30,8 @@
                 System.out.println(url);
                 connectToServer(url);
                 UtilsViews.addView(getClass(), "MainView", "/view_Main.fxml");
-//                UtilsViews.addView(getClass(), "MainSubView", "/subview_tags_products.fxml");
             } else {
                 UtilsViews.addView(getClass(), "loginView", "/view_Login.fxml");
-                UtilsViews.addView(getClass(), "MainView", "/view_Main.fxml");
-//                UtilsViews.addView(getClass(), "MainSubView", "/subview_tags_products.fxml");
             }
             Scene scene = new Scene(UtilsViews.parentContainer, 1280, 720);
             primaryStage.setScene(scene);

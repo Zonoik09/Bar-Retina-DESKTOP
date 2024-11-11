@@ -90,6 +90,11 @@ public class CtrlLogin {
 
     private static void wsOpen(String s) {
         Platform.runLater(() -> {
+            try {
+                UtilsViews.addView(CtrlLogin.class, "MainView", "/view_Main.fxml");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
             UtilsViews.setView("MainView");
         });
     }

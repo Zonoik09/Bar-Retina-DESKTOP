@@ -12,6 +12,7 @@ module com.client.desktop {
     requires com.almasb.fxgl.all;
     requires org.json;
     requires Java.WebSocket;
+    requires java.sql;
 
     opens com.client to javafx.fxml;
     exports com.client;

@@ -4,13 +4,19 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.TitledPane;
 import org.json.JSONObject;
+
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class CtrlMain {
 
+    @FXML
+    public Accordion accordion = new Accordion();
     @FXML
     private ComboBox<String> itemBox;
     @FXML
@@ -19,6 +25,7 @@ public class CtrlMain {
     private String requestType = "";
     // Referencia estática de la instancia de CtrlMain para acceder desde métodos estáticos
     private static CtrlMain instance;
+
 
     public void initialize() {
         instance = this;
@@ -66,4 +73,13 @@ public class CtrlMain {
             }
         });
     }
+
+    public void addPanel(String title, String comanda, LocalTime hora) {
+        LocalTime horaActual = LocalTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String horas = horaActual.format(formatter);
+        TitledPane newPane = new TitledPane(String.format("%s : %-50s %s", title, comanda, horas), null );
+        accordion.getPanes().add(newPane);
+    }
+
 }

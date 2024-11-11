@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: F5F5DC;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.CtrlMain">
    <children>
@@ -22,6 +25,20 @@
                         </AnchorPane>
                      </content>
                   </ScrollPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="738.0" prefWidth="965.0">
+               <children>
+                  <ScrollPane hbarPolicy="NEVER" layoutX="17.0" layoutY="149.0" prefHeight="562.0" prefWidth="920.0">
+                     <content>
+                        <Accordion fx:id="accordion" prefHeight="559.0" prefWidth="919.0" style="-fx-background-color: #333333;" />
+                     </content>
+                  </ScrollPane>
+                  <Label layoutX="273.0" layoutY="35.0" text="BAR RETINA">
+                     <font>
+                        <Font name="Verdana Bold Italic" size="62.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
          </children>
