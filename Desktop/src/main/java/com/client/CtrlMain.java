@@ -8,6 +8,7 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
+import javafx.scene.input.MouseEvent;
 import org.json.JSONObject;
 
 import java.time.LocalTime;
@@ -74,12 +75,18 @@ public class CtrlMain {
         });
     }
 
-    public void addPanel(String title, String comanda, LocalTime hora) {
-        LocalTime horaActual = LocalTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        String horas = horaActual.format(formatter);
-        TitledPane newPane = new TitledPane(String.format("%s : %-50s %s", title, comanda, horas), null );
-        accordion.getPanes().add(newPane);
+    public void goOrders(MouseEvent mouseEvent) throws Exception {
+        UtilsViews.addView(CtrlLogin.class, "OrdersView", "/view_orders.fxml");
+        UtilsViews.setView("OrderView");
+        System.out.println("Cambiando de vista...");
     }
+
+//    public void addPanel(String title, String comanda, LocalTime hora) {
+//        LocalTime horaActual = LocalTime.now();
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+//        String horas = horaActual.format(formatter);
+//        TitledPane newPane = new TitledPane(String.format("%s : %-50s %s", title, comanda, horas), null );
+//        accordion.getPanes().add(newPane);
+//    }
 
 }

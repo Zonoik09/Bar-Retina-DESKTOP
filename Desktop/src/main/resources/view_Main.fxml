@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -31,21 +31,20 @@
             </AnchorPane>
             <AnchorPane prefHeight="738.0" prefWidth="965.0">
                <children>
-                  <ScrollPane hbarPolicy="NEVER" layoutX="17.0" layoutY="149.0" prefHeight="562.0" prefWidth="920.0">
-                     <content>
-                        <Accordion fx:id="accordion" prefHeight="559.0" prefWidth="919.0" style="-fx-background-color: #333333;" />
-                     </content>
-                  </ScrollPane>
                   <Label layoutX="273.0" layoutY="35.0" text="BAR RETINA">
                      <font>
                         <Font name="Verdana Bold Italic" size="62.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="105.0" fitWidth="78.0" layoutX="845.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="ordersImg" fitHeight="105.0" fitWidth="78.0" layoutX="845.0" layoutY="36.0" onMouseClicked="#goOrders" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../data/icon_cesta.png" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
+                  <AnchorPane fx:id="anchorPaneProducts" layoutX="28.0" layoutY="129.0" prefHeight="585.0" prefWidth="909.0" style="-fx-background-color: #333333;" />
                </children>
             </AnchorPane>
          </children>
