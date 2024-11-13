@@ -9,6 +9,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
+import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 import org.json.JSONObject;
 
 import java.time.LocalTime;
@@ -77,8 +78,9 @@ public class CtrlMain {
 
     public void goOrders(MouseEvent mouseEvent) throws Exception {
         UtilsViews.addView(CtrlLogin.class, "OrdersView", "/view_orders.fxml");
-        UtilsViews.setView("OrderView");
+        UtilsViews.setView("OrdersView");
         System.out.println("Cambiando de vista...");
+        System.out.println(UtilsViews.getActiveView());
     }
 
 //    public void addPanel(String title, String comanda, LocalTime hora) {
