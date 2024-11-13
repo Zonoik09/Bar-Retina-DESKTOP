@@ -13,6 +13,7 @@ module com.client.desktop {
     requires org.json;
     requires Java.WebSocket;
     requires java.sql;
+    requires java.xml;
 
     opens com.client to javafx.fxml;
     exports com.client;
