@@ -81,7 +81,7 @@ public class CtrlLogin {
     }
 
     public static void connectToServer(String URL){
-        wsClient = UtilsWS.getSharedInstance(URL);
+        wsClient = UtilsWS.getSharedInstance("wss://"+URL);
 
         wsClient.onMessage(CtrlLogin::wsMessage);
         wsClient.onError(CtrlLogin::wsError);
