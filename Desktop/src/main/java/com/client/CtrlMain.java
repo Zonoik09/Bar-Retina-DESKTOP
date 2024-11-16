@@ -139,12 +139,4 @@ public class CtrlMain {
         UtilsViews.setView("tablesView");
     }
 
-//    public void addPanel(String title, String comanda, LocalTime hora) {
-//        LocalTime horaActual = LocalTime.now();
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-//        String horas = horaActual.format(formatter);
-//        TitledPane newPane = new TitledPane(String.format("%s : %-50s %s", title, comanda, horas), null );
-//        accordion.getPanes().add(newPane);
-//    }
-
 }

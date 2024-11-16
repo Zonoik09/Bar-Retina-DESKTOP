@@ -5,14 +5,17 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 
+import java.sql.SQLException;
+
 public class CtrlTables {
 
     @FXML
-    private TableView<Table> tableView;
+    public TableView<Table> tableView;
 
     @FXML
     private TableColumn<Table, String> tableColumn;
@@ -21,17 +24,25 @@ public class CtrlTables {
     @FXML
     private TableColumn<Table, String> waiterColumn;
     @FXML
-    private TableColumn<Table, String> paidColumn;
+    private TableColumn<Table, Boolean> paidColumn;
     @FXML
-    private TableColumn<Table, String> freeColumn;
+    private TableColumn<Table, Boolean> freeColumn;
 
-    private ObservableList<Table> tableList = FXCollections.observableArrayList();
+    public static ObservableList<Table> tableList = FXCollections.observableArrayList();
 
     public void initialize() {
         tableView.setItems(tableList);
-        generateTables();
         setupTableColumns();
+        generateTables();
+
+        DatabaseManager dbm = new DatabaseManager();
+        try {
+            dbm.getTables();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
+
 
     private void setupTableColumns() {
         // Configuración de columnas
@@ -44,21 +55,22 @@ public class CtrlTables {
         // Hacemos que las columnas editables
         idOrderColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         waiterColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        paidColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        freeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        paidColumn.setCellFactory(CheckBoxTableCell.forTableColumn(paidColumn));
+        freeColumn.setCellFactory(CheckBoxTableCell.forTableColumn(freeColumn));
 
         // Configuración de edición
         idOrderColumn.setOnEditCommit(event -> event.getRowValue().setIdOrder(event.getNewValue()));
         waiterColumn.setOnEditCommit(event -> event.getRowValue().setWaiter(event.getNewValue()));
-        paidColumn.setOnEditCommit(event -> event.getRowValue().setPaid(event.getNewValue()));
-        freeColumn.setOnEditCommit(event -> event.getRowValue().setFree(event.getNewValue()));
+        paidColumn.setCellFactory(CheckBoxTableCell.forTableColumn(paidColumn));
+        freeColumn.setCellFactory(CheckBoxTableCell.forTableColumn(freeColumn));
+
 
         tableView.setEditable(true);
     }
 
     private void generateTables() {
         for (int i = 1; i <= 20; i++) {
-            tableList.add(new Table("Table " + i, "", "", "", ""));
+            tableList.add(new Table("Table " + i, "", "", false, true));
         }
     }
 
@@ -66,4 +78,6 @@ public class CtrlTables {
     public void go_back(MouseEvent mouseEvent) {
         UtilsViews.setView("MainView");
     }
+
+
 }

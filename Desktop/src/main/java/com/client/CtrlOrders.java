@@ -5,14 +5,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -32,8 +29,8 @@ public class CtrlOrders {
     public Button payButton;
 
     public void initialize() {
-        addListView("Table 23", "order 245",LocalTime.now());
-        addListView("Table 13", "order 242",LocalTime.now());
+        addListView("Table 23", "order005",LocalTime.now());
+        addListView("Table 13", "order008",LocalTime.now());
         deleteButton.setDisable(true);
         payButton.setDisable(true);
         // Agregar un listener para detectar cambios en la selección
@@ -91,5 +88,15 @@ public class CtrlOrders {
         listViewOrders.setItems(items);
     }
 
+    public void viewDetallOrder(MouseEvent mouseEvent) throws SQLException {
+        DatabaseManager dbm = new DatabaseManager();
+        String selectedItem = listViewOrders.getSelectionModel().getSelectedItem();
+        String[] parts = selectedItem.split(":");
+        parts[1] = parts[1].trim();
+        String[] tableid = parts[0].split(" ");
+        String[] orderid = parts[1].split("\\s+");
+//        System.out.println(tableid[1]+"\n"+orderid[0]);
+        dbm.getOrder(Integer.parseInt(tableid[1]),orderid[0]);
+    }
 
 }

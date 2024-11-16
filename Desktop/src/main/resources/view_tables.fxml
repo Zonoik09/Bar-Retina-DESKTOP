@@ -13,7 +13,7 @@
    <children>
       <ImageView fx:id="back_arrow" fitHeight="77.0" fitWidth="54.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#go_back" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../data/back_arrow.png" />
+            <Image url="@back_arrow.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />

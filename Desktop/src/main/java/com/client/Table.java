@@ -1,5 +1,7 @@
 package com.client;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -8,16 +10,25 @@ public class Table {
     private final StringProperty table;
     private final StringProperty idOrder;
     private final StringProperty waiter;
-    private final StringProperty paid;
-    private final StringProperty free;
+    private final BooleanProperty paid;
+    private final BooleanProperty free;
+    private static int instanceCounter = 0;
 
-    public Table(String table, String idOrder, String waiter, String paid, String free) {
+    public Table(String table, String idOrder, String waiter, boolean paid, boolean free) {
+        // Incrementar contador de instancias
+        instanceCounter++;
+
+        // Lógica para establecer valores predeterminados
+        boolean defaultPaid = (instanceCounter == 1) ? false : paid; // false para el primero
+        boolean defaultFree = (instanceCounter == 1) ? true : free;  // true para el primero
+
         this.table = new SimpleStringProperty(table != null ? table : "Unknown");
         this.idOrder = new SimpleStringProperty(idOrder != null ? idOrder : "N/A");
         this.waiter = new SimpleStringProperty(waiter != null ? waiter : "N/A");
-        this.paid = new SimpleStringProperty(paid != null ? paid : "No");
-        this.free = new SimpleStringProperty(free != null ? free : "Yes");
+        this.paid = new SimpleBooleanProperty(defaultPaid);
+        this.free = new SimpleBooleanProperty(defaultFree);
     }
+
 
     // Getters y Setters con propiedades JavaFX
 
@@ -53,27 +64,27 @@ public class Table {
         return waiter;
     }
 
-    public String getPaid() {
+    public Boolean getPaid() {
         return paid.get();
     }
 
-    public void setPaid(String paid) {
+    public void setPaid(Boolean paid) {
         this.paid.set(paid);
     }
 
-    public StringProperty paidProperty() {
+    public BooleanProperty paidProperty() {
         return paid;
     }
 
-    public String getFree() {
+    public Boolean getFree() {
         return free.get();
     }
 
-    public void setFree(String free) {
+    public void setFree(Boolean free) {
         this.free.set(free);
     }
 
-    public StringProperty freeProperty() {
+    public BooleanProperty freeProperty() {
         return free;
     }
 }

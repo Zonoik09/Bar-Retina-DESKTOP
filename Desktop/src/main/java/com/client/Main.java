@@ -27,7 +27,6 @@
             UtilsViews.parentContainer = new StackPane();
             if (file.exists()) {
                 String url = getURL();
-                System.out.println(url);
                 connectToServer(url);
                 UtilsViews.addView(getClass(), "MainView", "/view_Main.fxml");
             } else {

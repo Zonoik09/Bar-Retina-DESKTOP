@@ -15,7 +15,7 @@
    <children>
       <ImageView fx:id="back_arrow" fitHeight="77.0" fitWidth="54.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#go_back" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../data/back_arrow.png" />
+            <Image url="@back_arrow.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -25,7 +25,7 @@
          <children>
             <ScrollPane prefHeight="365.0" prefWidth="260.0">
                <content>
-                  <ListView fx:id="listViewOrders" prefHeight="362.0" prefWidth="257.0" />
+                  <ListView fx:id="listViewOrders" onMouseClicked="#viewDetallOrder" prefHeight="362.0" prefWidth="257.0" />
                </content>
             </ScrollPane>
          </children>
