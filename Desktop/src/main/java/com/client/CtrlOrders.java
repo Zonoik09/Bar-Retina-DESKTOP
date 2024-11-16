@@ -96,7 +96,7 @@ public class CtrlOrders {
         String[] tableid = parts[0].split(" ");
         String[] orderid = parts[1].split("\\s+");
 //        System.out.println(tableid[1]+"\n"+orderid[0]);
-        dbm.getOrder(Integer.parseInt(tableid[1]),orderid[0]);
+        dbm.getDetalledOrder(Integer.parseInt(tableid[1]),orderid[0]);
     }
 
 }

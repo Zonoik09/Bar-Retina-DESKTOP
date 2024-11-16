@@ -41,6 +41,10 @@ public class CtrlTables {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        tableView.setOnMouseClicked(event -> {
+            detallOrderTable();
+        });
     }
 
 
@@ -77,6 +81,22 @@ public class CtrlTables {
     @FXML
     public void go_back(MouseEvent mouseEvent) {
         UtilsViews.setView("MainView");
+    }
+
+    public void detallOrderTable() {
+        Table selectedItem = tableView.getSelectionModel().getSelectedItem();
+        if (selectedItem.getIdOrder().equals("")) {
+            Main.showAlert("No order in progress","No order in progress");
+        } else {
+            try {
+                UtilsViews.addView(CtrlLogin.class, "detailOrder", "/order_details.fxml");
+                UtilsViews.setView("detailOrder");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+
+        }
     }
 
 

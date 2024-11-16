@@ -9,7 +9,7 @@ public class DatabaseManager {
     private static final String DB_USER = "Admin";
     private static final String DB_PASSWORD = "BarRetina2*";
 
-    public void getOrder(int tableid, String orderid) throws SQLException {
+    public void getDetalledOrder(int tableid, String orderid) throws SQLException {
         Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
         String SelectOrder = "SELECT * FROM barretina2.BarRetina2 WHERE tableid = ? AND orderid = ?";
 
@@ -27,13 +27,14 @@ public class DatabaseManager {
                     if (state.equals("complete")) {
                         paid = true;
                     }
-
+                    Orders order = new Orders(tableID,orderID,waiter,products,state);
                 }
 
             }
         }
     }
 
+    // Esto sirve para que aparezcan las mesas con las ordenes etc...
     public void getTables() throws SQLException {
         Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
         String selectQuery = "SELECT * FROM barretina2.BarRetina2 WHERE LOWER(state) != ?";

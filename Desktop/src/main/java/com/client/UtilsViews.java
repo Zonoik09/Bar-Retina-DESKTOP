@@ -8,8 +8,10 @@ import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class UtilsViews {
@@ -175,4 +177,5 @@ public class UtilsViews {
         // Remove focus from buttons
         parentContainer.requestFocus();
     }
+
 }

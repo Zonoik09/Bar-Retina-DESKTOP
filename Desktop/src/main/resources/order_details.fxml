@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #F5F5DC;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="53.0" fitWidth="55.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@back_arrow.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="61.0" layoutY="100.0" prefHeight="161.0" prefWidth="164.0" style="-fx-background-color: #333333; -fx-border-color: #B68F3C; -fx-border-width: 3px; -fx-border-radius: 5px; -fx-background-radius: 10px;">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" text="WAITER" textFill="WHITE">
+               <font>
+                  <Font name="Verdana Bold" size="22.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="92.0" text="TIME" textFill="WHITE">
+               <font>
+                  <Font name="Verdana Bold" size="22.0" />
+               </font>
+            </Label>
+            <Text fx:id="waiterName" fill="#fffdd0" layoutX="27.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE" wrappingWidth="125.13671875">
+               <font>
+                  <Font name="Verdana" size="16.0" />
+               </font>
+            </Text>
+            <Text fx:id="TimeText" fill="#fffdd0" layoutX="27.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="hh:mm:ss" wrappingWidth="125.13671875">
+               <font>
+                  <Font name="Verdana" size="16.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <ScrollPane layoutX="291.0" layoutY="67.0" prefHeight="471.0" prefWidth="932.0">
+         <content>
+            <AnchorPane prefHeight="469.0" prefWidth="930.0">
+               <children>
+                  <VBox fx:id="vBoxProducts" layoutX="-3.0" prefHeight="465.0" prefWidth="847.0" />
+                  <VBox fx:id="vBoxPriceProducts" layoutX="844.0" prefHeight="465.0" prefWidth="86.0" />
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <AnchorPane layoutX="291.0" layoutY="558.0" prefHeight="53.0" prefWidth="932.0" style="-fx-background-color: #333333; -fx-background-radius: 10px;">
+         <children>
+            <Text fx:id="priceSubtotal" fill="#fffdd0" layoutX="753.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="####.##€">
+               <font>
+                  <Font name="Verdana Bold" size="24.0" />
+               </font>
+            </Text>
+            <Label layoutX="14.0" layoutY="10.0" text="SUBTOTAL" textFill="WHITE">
+               <font>
+                  <Font name="Verdana Bold Italic" size="27.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="291.0" layoutY="629.0" prefHeight="53.0" prefWidth="932.0" style="-fx-background-color: #333333; -fx-background-radius: 10px;">
+         <children>
+            <Label layoutX="11.0" layoutY="5.0" text="TOTAL" textFill="WHITE">
+               <font>
+                  <Font name="Verdana Bold Italic" size="27.0" />
+               </font>
+            </Label>
+            <Text fx:id="priceTotal" fill="#fffdd0" layoutX="752.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="####.##€">
+               <font>
+                  <Font name="Verdana Bold" size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
