@@ -6,9 +6,6 @@
     import javafx.scene.layout.StackPane;
     import javafx.stage.Stage;
     import org.w3c.dom.Document;
-    import org.w3c.dom.Element;
-    import org.w3c.dom.Node;
-    import org.w3c.dom.NodeList;
 
     import javax.xml.parsers.DocumentBuilder;
     import javax.xml.parsers.DocumentBuilderFactory;
@@ -29,8 +26,11 @@
                 String url = getURL();
                 connectToServer(url);
                 UtilsViews.addView(getClass(), "MainView", "/view_Main.fxml");
+                UtilsViews.addView(getClass(), "detailOrder","/order_details.fxml" );
+
             } else {
                 UtilsViews.addView(getClass(), "loginView", "/view_Login.fxml");
+                UtilsViews.addView(CtrlLogin.class, "detailOrder","/order_details.fxml" );
             }
             Scene scene = new Scene(UtilsViews.parentContainer, 1280, 720);
             primaryStage.setScene(scene);

@@ -35,9 +35,7 @@ public class CtrlMain {
     private ComboBox<String> itemBox;
     @FXML
     private ListView<String> listView;
-    // Variable para rastrear el tipo de solicitud actual
     private String requestType = "";
-    // Referencia estática de la instancia de CtrlMain para acceder desde métodos estáticos
     private static CtrlMain instance;
     private static ArrayList<Element> productes = new ArrayList<>();
 

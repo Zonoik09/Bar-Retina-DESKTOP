@@ -90,13 +90,13 @@ public class CtrlOrders {
 
     public void viewDetallOrder(MouseEvent mouseEvent) throws SQLException {
         DatabaseManager dbm = new DatabaseManager();
+        CtrlTables ctb = new CtrlTables();
         String selectedItem = listViewOrders.getSelectionModel().getSelectedItem();
         String[] parts = selectedItem.split(":");
         parts[1] = parts[1].trim();
         String[] tableid = parts[0].split(" ");
         String[] orderid = parts[1].split("\\s+");
-//        System.out.println(tableid[1]+"\n"+orderid[0]);
-        dbm.getDetalledOrder(Integer.parseInt(tableid[1]),orderid[0]);
+//        dbm.getDetailedOrder(Integer.parseInt(tableid[1]),orderid[0]);
     }
 
 }

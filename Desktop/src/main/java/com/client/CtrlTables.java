@@ -12,6 +12,8 @@ import javafx.scene.input.MouseEvent;
 
 import java.sql.SQLException;
 
+import static com.client.DatabaseManager.getDetailedOrder;
+
 public class CtrlTables {
 
     @FXML
@@ -73,8 +75,9 @@ public class CtrlTables {
     }
 
     private void generateTables() {
+        tableList.clear();
         for (int i = 1; i <= 20; i++) {
-            tableList.add(new Table("Table " + i, "", "", false, true));
+            tableList.add(new Table(i+"", "", "", false, true));
         }
     }
 
@@ -85,17 +88,20 @@ public class CtrlTables {
 
     public void detallOrderTable() {
         Table selectedItem = tableView.getSelectionModel().getSelectedItem();
-        if (selectedItem.getIdOrder().equals("")) {
-            Main.showAlert("No order in progress","No order in progress");
-        } else {
-            try {
-                UtilsViews.addView(CtrlLogin.class, "detailOrder", "/order_details.fxml");
-                UtilsViews.setView("detailOrder");
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+        if (selectedItem != null) {
+                // Acceder a los datos del objeto seleccionado
+                String orderId = selectedItem.getIdOrder();
+                String table = selectedItem.getTable();
+            if (selectedItem.getIdOrder().equals("")) {
+                Main.showAlert("No order in progress","No order in progress");
+            } else {
+                try {
+                    getDetailedOrder(Integer.parseInt(table), orderId);
+                    UtilsViews.setView("detailOrder");
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
-
-
         }
     }
 
