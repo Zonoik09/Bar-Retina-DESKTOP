@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import static com.client.DatabaseManager.getOrder;
@@ -106,12 +107,17 @@ public class CtrlOrders {
         ObservableList<String> items = instance.listviewOrder.getItems();
         List<String> products = order.getProducts();
         List<Float> prices = order.getPrices();
+        DecimalFormat df = new DecimalFormat("0.00");
+        float sum = 0;
         for (int i = 0; i < products.size(); i++) {
             String product = products.get(i);
             Float price = prices.get(i);
-            String itemText = String.format("%s : %.2f€", product, price); // Formato con dos decimales
+            String priceText = df.format(prices.get(i));
+            String itemText = String.format("%s : %s €", product, priceText);
             items.add(itemText);
+            sum+=price;
         }
+        instance.totalToPay.setText(df.format(sum) + "€");
 
         instance.listviewOrder.setItems(items);
     }
