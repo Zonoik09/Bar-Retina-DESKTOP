@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -60,6 +61,7 @@ public class CtrlOrderDetails {
                 // Crear ComboBox para el estado
                 ComboBox<String> stateComboBox = new ComboBox<>();
                 stateComboBox.getItems().addAll("Pending", "In Preparation", "Ready", "Paid");
+                // Cuando se cambie a ready enviar mensaje al server
                 stateComboBox.setValue(states.get(i));
                 stateComboBox.setStyle("-fx-font-size: 18px;");
 
@@ -73,6 +75,14 @@ public class CtrlOrderDetails {
                 priceText.setStyle("-fx-font-size: 18px; -fx-padding: 5px; -fx-alignment: center-right;");
                 instance.vBoxPriceProducts.getChildren().add(priceText);
 
+                int productIndex = i;
+                stateComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+                    if ("Ready".equals(newValue)) {
+                        String productName = products.get(productIndex);
+                        instance.sendRequest("ready", "Product: " + productName + " is ready.");
+                    }
+                });
+
                 sum += prices.get(i);
             }
 
@@ -83,6 +93,12 @@ public class CtrlOrderDetails {
         }
     }
 
+    private void sendRequest(String type,String msg) {
+        JSONObject message = new JSONObject();
+        message.put("type", type);
+        message.put("message", msg);
+        CtrlLogin.wsClient.safeSend(message.toString());
+    }
 
     public void go_back(MouseEvent mouseEvent) {
         UtilsViews.setView("tablesView");

@@ -1,19 +1,18 @@
 package com.client;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.collections.ObservableList;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.client.CtrlOrderDetails.setOrderDetails;
-import static com.client.CtrlTables.tableList;
+import static com.client.CtrlOrders.setOrder;
+
 
 public class DatabaseManager {
-//    private static final String DB_URL = "jdbc:mysql://localhost:3306/barretina2";
-    private static final String DB_URL = "jdbc:mysql://localhost:3307/barretina2";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/barretina2";
+//    private static final String DB_URL = "jdbc:mysql://localhost:3307/barretina2";
     private static final String DB_USER = "Admin";
     private static final String DB_PASSWORD = "BarRetina2*";
 
@@ -58,9 +57,69 @@ public class DatabaseManager {
         }
     }
 
+    public static void getOrder(int tableId, String orderId) {
+        String selectOrderQuery = "SELECT C.id AS command_id, C.tableid AS table_id, C.waiter, C.hour, C.day, Cd.product_name, Cd.price, C.state FROM Command C JOIN Command_details Cd ON C.id = Cd.id_command WHERE C.tableid = ? AND C.id = ?;";
 
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(selectOrderQuery)) {
 
-    // Esto sirve para que aparezcan las mesas con las ordenes etc...
+            stmt.setInt(1, tableId);
+            stmt.setString(2, orderId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                List<String> listProducts = new ArrayList<>();
+                List<Float> listPrices = new ArrayList<>();
+                Orders order = null;
+
+                while (rs.next()) {
+                    int commandId = rs.getInt("command_id");
+                    int tableID = rs.getInt("table_id");
+                    String waiter = rs.getString("waiter");
+                    String hour = rs.getString("hour");
+                    String date = rs.getString("day");
+                    String product = rs.getString("product_name");
+                    float price = rs.getFloat("price");
+                    String state = rs.getString("state");
+
+                    listProducts.add(product);
+                    listPrices.add(price);
+                    order = new Orders(tableID, orderId, waiter, listProducts, listPrices, state, hour, date);
+                }
+                if (order != null) {
+                    setOrder(order);
+                }
+
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error retrieving order details: " + e.getMessage());
+        }
+    }
+
+    public static ObservableList<String> getOrders() {
+        String selectOrderQuery = "SELECT C.id, C.tableid FROM Command C ORDER BY C.id DESC;";
+        ObservableList<String> ordersList = javafx.collections.FXCollections.observableArrayList();
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(selectOrderQuery)) {
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    String commandId = rs.getString("id");
+                    String tableID = rs.getString("tableid");
+                    String formattedOrder = String.format("Table %s : Order %s", tableID, commandId);
+                    ordersList.add(formattedOrder);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException("Error processing ResultSet", e);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error retrieving order details: " + e.getMessage());
+        }
+        return ordersList;
+    }
+
     public void getTables() throws SQLException {
         Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
         String selectQuery = "SELECT * FROM Command C JOIN Command_details Cd ON C.id = Cd.id_command WHERE LOWER(C.state) != ?";
@@ -83,7 +142,7 @@ public class DatabaseManager {
                             table.setPaid(paid);
                             table.setFree(false);
                             tableExists = true;
-                            break;
+//                            break;
                         }
                     }
                     if (!tableExists) {

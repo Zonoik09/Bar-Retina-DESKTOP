@@ -24,7 +24,7 @@
          <children>
             <ScrollPane prefHeight="365.0" prefWidth="260.0">
                <content>
-                  <ListView fx:id="listViewOrders" onMouseClicked="#viewDetallOrder" prefHeight="362.0" prefWidth="257.0" />
+                  <ListView fx:id="listViewOrders" prefHeight="362.0" prefWidth="257.0" />
                </content>
             </ScrollPane>
          </children>
@@ -50,7 +50,7 @@
                   <Font name="Verdana Bold" size="27.0" />
                </font>
             </Label>
-            <Text fx:id="totalToPay" fill="WHITE" layoutX="748.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="###.##€" textAlignment="RIGHT" wrappingWidth="179.10009765625">
+            <Text fx:id="totalToPay" fill="#fffdd0" layoutX="742.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="###.##€" textAlignment="RIGHT" wrappingWidth="179.10009765625">
                <font>
                   <Font name="Verdana" size="23.0" />
                </font>
@@ -74,17 +74,17 @@
                   <Font name="Verdana Bold" size="18.0" />
                </font>
             </Label>
-            <Text fill="#fffdd0" layoutX="47.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="...">
+            <Text fx:id="setWaiterText" fill="#fffdd0" layoutX="47.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="...">
                <font>
                   <Font name="Verdana" size="18.0" />
                </font>
             </Text>
-            <Text fill="#fffdd0" layoutX="51.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="...">
+            <Text fx:id="setDateText" fill="#fffdd0" layoutX="51.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="...">
                <font>
                   <Font name="Verdana" size="18.0" />
                </font>
             </Text>
-            <Text fill="#fffdd0" layoutX="51.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="...">
+            <Text fx:id="setStateText" fill="#fffdd0" layoutX="51.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="...">
                <font>
                   <Font name="Verdana" size="18.0" />
                </font>
