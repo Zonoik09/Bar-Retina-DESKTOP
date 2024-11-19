@@ -12,6 +12,7 @@ import javafx.scene.text.Text;
 import java.sql.SQLException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 public class CtrlOrders {
 
@@ -23,22 +24,11 @@ public class CtrlOrders {
     public Text totalToPay;
     @FXML
     public ImageView back_arrow;
-    @FXML
-    public Button deleteButton;
-    @FXML
-    public Button payButton;
 
     public void initialize() {
-        addListView("Table 23", "order005",LocalTime.now());
-        addListView("Table 13", "order008",LocalTime.now());
-        deleteButton.setDisable(true);
-        payButton.setDisable(true);
-        // Agregar un listener para detectar cambios en la selección
+        addListView("Table 20", "Order 005");
+        addListView("Table 13", "Order 008");
         listViewOrders.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                deleteButton.setDisable(false);
-                payButton.setDisable(false);
-            }
         });
     }
 
@@ -46,43 +36,43 @@ public class CtrlOrders {
         UtilsViews.setView("MainView");
     }
 
-    public void DeleteButton(ActionEvent actionEvent) {
-        // Obtener el elemento seleccionado
-        String selectedItem = listViewOrders.getSelectionModel().getSelectedItem();
-        if (selectedItem != null) {
-            // Eliminar el elemento seleccionado de la lista
-            listViewOrders.getItems().remove(selectedItem);
-            Main.showAlert("ALERT","Removed: "+selectedItem);
+//    public void DeleteButton(ActionEvent actionEvent) {
+//        // Obtener el elemento seleccionado
+//        String selectedItem = listViewOrders.getSelectionModel().getSelectedItem();
+//        if (selectedItem != null) {
+//            // Eliminar el elemento seleccionado de la lista
+//            listViewOrders.getItems().remove(selectedItem);
+//            Main.showAlert("ALERT","Removed: "+selectedItem);
+//
+//            // Deshabilitar los botones después de eliminar el elemento
+//            deleteButton.setDisable(true);
+//            payButton.setDisable(true);
+//        }
+//    }
+//
+//
+//    public void FinalizeAndPay(ActionEvent actionEvent) {
+//        String selectedItem = listViewOrders.getSelectionModel().getSelectedItem();
+//        if (selectedItem != null) {
+//            listViewOrders.getItems().remove(selectedItem);
+//            Main.showAlert("INFORMATION","Paid and removed: "+selectedItem);
+//
+//            // Deshabilitar los botones después de procesar el pago y eliminar el elemento
+//            deleteButton.setDisable(true);
+//            payButton.setDisable(true);
+//        }
+//    }
 
-            // Deshabilitar los botones después de eliminar el elemento
-            deleteButton.setDisable(true);
-            payButton.setDisable(true);
-        }
-    }
 
+    public void addListView(String table, String comanda) {
 
-    public void FinalizeAndPay(ActionEvent actionEvent) {
-        String selectedItem = listViewOrders.getSelectionModel().getSelectedItem();
-        if (selectedItem != null) {
-            listViewOrders.getItems().remove(selectedItem);
-            Main.showAlert("INFORMATION","Paid and removed: "+selectedItem);
-
-            // Deshabilitar los botones después de procesar el pago y eliminar el elemento
-            deleteButton.setDisable(true);
-            payButton.setDisable(true);
-        }
-    }
-
-
-    public void addListView(String table, String comanda, LocalTime hora) {
         // Formatear la hora actual
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        String horas = hora.format(formatter);
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+//        String horas = hora.format(formatter);
 
         // Crear el texto a mostrar en el ListView
-        String itemText = String.format("%s : %-30s %s", table, comanda, horas);
+        String itemText = String.format("%s : %s", table, comanda);
 
-        // Obtener los elementos actuales del ListView y añadir el nuevo elemento
         ObservableList<String> items = listViewOrders.getItems();
         items.add(itemText);
         listViewOrders.setItems(items);
@@ -95,8 +85,8 @@ public class CtrlOrders {
         String[] parts = selectedItem.split(":");
         parts[1] = parts[1].trim();
         String[] tableid = parts[0].split(" ");
-        String[] orderid = parts[1].split("\\s+");
-//        dbm.getDetailedOrder(Integer.parseInt(tableid[1]),orderid[0]);
+        String[] orderid = parts[1].split(" ");
+        dbm.getDetailedOrder(Integer.parseInt(tableid[1]),orderid[1]);
     }
 
 }
