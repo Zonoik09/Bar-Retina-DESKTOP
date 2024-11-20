@@ -1,5 +1,6 @@
 package com.client;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
@@ -12,18 +13,17 @@ import static com.client.CtrlOrders.setOrder;
 
 public class DatabaseManager {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/barretina2";
-//    private static final String DB_URL = "jdbc:mysql://localhost:3307/barretina2";
-    private static final String DB_USER = "Admin";
-    private static final String DB_PASSWORD = "BarRetina2*";
+    private static final String DB_USER = "root";
+    private static final String DB_PASSWORD = ""; // borro la contra porque si es local cada uno tiene una
 
-    public static void getDetailedOrder(int tableId, String orderId) {
-        String selectOrderQuery = "SELECT C.id AS command_id, C.tableid AS table_id, C.waiter, C.hour, Cd.product_name, Cd.price, Cd.state FROM Command C JOIN Command_details Cd ON C.id = Cd.id_command WHERE C.tableid = ? AND C.id = ?;";
+    public static void getDetailedOrder(int tableId, String ordersId) {
+        String selectOrderQuery = "SELECT C.id AS order_id, C.tableid AS table_id, C.waiter, C.hour, Cd.product_name, Cd.price, Cd.state FROM orders C JOIN order_details Cd ON C.id = Cd.id_order WHERE C.tableid = ? AND C.id = ?;";
 
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(selectOrderQuery)) {
 
             stmt.setInt(1, tableId);
-            stmt.setString(2, orderId);
+            stmt.setString(2, ordersId);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 List<String> listProducts = new ArrayList<>();
@@ -32,7 +32,6 @@ public class DatabaseManager {
                 Orders order = null;
 
                 while (rs.next()) {
-                    int commandId = rs.getInt("command_id");
                     int tableID = rs.getInt("table_id");
                     String waiter = rs.getString("waiter");
                     String hour = rs.getString("hour");
@@ -43,7 +42,7 @@ public class DatabaseManager {
                     listProducts.add(product);
                     listPrices.add(price);
                     listStates.add(state);
-                    order = new Orders(tableID, orderId, waiter, listProducts, listPrices, listStates, hour);
+                    order = new Orders(tableID, ordersId, waiter, listProducts, listPrices, listStates, hour);
                 }
                 if (order != null) {
                     setOrderDetails(order);
@@ -57,14 +56,14 @@ public class DatabaseManager {
         }
     }
 
-    public static void getOrder(int tableId, String orderId) {
-        String selectOrderQuery = "SELECT C.id AS command_id, C.tableid AS table_id, C.waiter, C.hour, C.day, Cd.product_name, Cd.price, C.state FROM Command C JOIN Command_details Cd ON C.id = Cd.id_command WHERE C.tableid = ? AND C.id = ?;";
+    public static void getOrder(int tableId, String ordersId) {
+        String selectOrderQuery = "SELECT C.id AS order_id, C.tableid AS table_id, C.waiter, C.hour, C.day, Cd.product_name, Cd.price, C.state FROM orders C JOIN order_details Cd ON C.id = Cd.id_order WHERE C.tableid = ? AND C.id = ?;";
 
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(selectOrderQuery)) {
 
             stmt.setInt(1, tableId);
-            stmt.setString(2, orderId);
+            stmt.setString(2, ordersId);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 List<String> listProducts = new ArrayList<>();
@@ -72,7 +71,6 @@ public class DatabaseManager {
                 Orders order = null;
 
                 while (rs.next()) {
-                    int commandId = rs.getInt("command_id");
                     int tableID = rs.getInt("table_id");
                     String waiter = rs.getString("waiter");
                     String hour = rs.getString("hour");
@@ -83,7 +81,7 @@ public class DatabaseManager {
 
                     listProducts.add(product);
                     listPrices.add(price);
-                    order = new Orders(tableID, orderId, waiter, listProducts, listPrices, state, hour, date);
+                    order = new Orders(tableID, ordersId, waiter, listProducts, listPrices, state, hour, date);
                 }
                 if (order != null) {
                     setOrder(order);
@@ -98,7 +96,7 @@ public class DatabaseManager {
     }
 
     public static ObservableList<String> getOrders() {
-        String selectOrderQuery = "SELECT C.id, C.tableid FROM Command C ORDER BY C.id DESC;";
+        String selectOrderQuery = "SELECT C.id, C.tableid FROM orders C ORDER BY C.id DESC;";
         ObservableList<String> ordersList = javafx.collections.FXCollections.observableArrayList();
 
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
@@ -106,9 +104,9 @@ public class DatabaseManager {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    String commandId = rs.getString("id");
+                    String orderId = rs.getString("id");
                     String tableID = rs.getString("tableid");
-                    String formattedOrder = String.format("Table %s : Order %s", tableID, commandId);
+                    String formattedOrder = String.format("Table %s : Order %s", tableID, orderId);
                     ordersList.add(formattedOrder);
                 }
             } catch (Exception e) {
@@ -122,7 +120,7 @@ public class DatabaseManager {
 
     public void getTables() throws SQLException {
         Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-        String selectQuery = "SELECT * FROM Command C JOIN Command_details Cd ON C.id = Cd.id_command WHERE LOWER(C.state) != ?";
+        String selectQuery = "SELECT * FROM orders C JOIN order_details Cd ON C.id = Cd.id_order WHERE LOWER(C.state) != ?";
 
         try (PreparedStatement stmt = conn.prepareStatement(selectQuery)) {
             stmt.setString(1, "complete".toLowerCase());
@@ -154,7 +152,7 @@ public class DatabaseManager {
     }
 
     public static void changeTag(int orderID, int idProduct, String newState) {
-        String query = "UPDATE Command_details SET state = ? WHERE id_command = ? and id_products = ?";
+        String query = "UPDATE order_details SET state = ? WHERE id_order = ? and id_products = ?";
         if (newState != null) {
             try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
                  PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -177,7 +175,7 @@ public class DatabaseManager {
     }
 
     public static void changeOrderTag(int orderID, String newState) {
-        String query = "UPDATE Command SET state = ? WHERE id = ? ";
+        String query = "UPDATE orders SET state = ? WHERE id = ? ";
         if (newState != null) {
             try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
                  PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -198,5 +196,31 @@ public class DatabaseManager {
         }
     }
 
+    public static ObservableList<String> getTopProducts() {
+        String query = "SELECT product_name, COUNT(*) AS order_count " +
+                "FROM order_details " +
+                "GROUP BY product_name " +
+                "ORDER BY order_count DESC " +
+                "LIMIT 8;";
+        ObservableList<String> topProductsList = FXCollections.observableArrayList();
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    String productName = rs.getString("product_name");
+                    int orderCount = rs.getInt("order_count");
+                    String formattedProduct = String.format("%s: %d orders", productName, orderCount);
+                    topProductsList.add(formattedProduct);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException("Error processing ResultSet", e);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error retrieving top products: " + e.getMessage());
+        }
+        return topProductsList;
+    }
 
 }
