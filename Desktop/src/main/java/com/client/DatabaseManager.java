@@ -11,8 +11,8 @@ import static com.client.CtrlOrders.setOrder;
 
 
 public class DatabaseManager {
-//    private static final String DB_URL = "jdbc:mysql://localhost:3306/barretina2";
-    private static final String DB_URL = "jdbc:mysql://localhost:3307/barretina2";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/barretina2";
+//    private static final String DB_URL = "jdbc:mysql://localhost:3307/barretina2";
     private static final String DB_USER = "Admin";
     private static final String DB_PASSWORD = "BarRetina2*";
 
