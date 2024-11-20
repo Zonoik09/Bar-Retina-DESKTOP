@@ -117,7 +117,7 @@ public class CtrlOrderDetails {
                 stateComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
                 if ("Ready".equals(newValue)) {
                     String productName = products.get(productIndex);
-                    instance.sendRequest("ready", "Product: " + productName + " is ready.");
+                    instance.sendRequest("ready", "Product: " + productName + " is ready.", Integer.parseInt(instance.tableText.getText()));
                 }
                     String productName = products.get(productIndex);
                     changeTag(Integer.parseInt(order.getOrderID()),productIndex+1,stateComboBox.getValue());
@@ -162,10 +162,10 @@ public class CtrlOrderDetails {
     }
 
 
-    private void sendRequest(String type,String msg) {
+    private void sendRequest(String type,String msg, int tableID) {
         JSONObject message = new JSONObject();
         message.put("type", type);
-        message.put("message", msg);
+        message.put("message", msg+","+tableID);
         CtrlLogin.wsClient.safeSend(message.toString());
     }
 
