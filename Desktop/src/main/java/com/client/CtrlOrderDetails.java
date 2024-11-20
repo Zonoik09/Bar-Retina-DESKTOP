@@ -165,7 +165,8 @@ public class CtrlOrderDetails {
     private void sendRequest(String type,String msg, int tableID) {
         JSONObject message = new JSONObject();
         message.put("type", type);
-        message.put("message", msg+","+tableID);
+        message.put("message", msg);
+        message.put("tableID", tableID);
         CtrlLogin.wsClient.safeSend(message.toString());
     }
 
