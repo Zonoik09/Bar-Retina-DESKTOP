@@ -11,8 +11,8 @@ import static com.client.CtrlOrders.setOrder;
 
 
 public class DatabaseManager {
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/barretina2";
-//    private static final String DB_URL = "jdbc:mysql://localhost:3307/barretina2";
+//    private static final String DB_URL = "jdbc:mysql://localhost:3306/barretina2";
+    private static final String DB_URL = "jdbc:mysql://localhost:3307/barretina2";
     private static final String DB_USER = "Admin";
     private static final String DB_PASSWORD = "BarRetina2*";
 
@@ -132,7 +132,7 @@ public class DatabaseManager {
                     int tableID = rs.getInt("tableid");
                     String waiter = rs.getString("waiter");
                     String state = rs.getString("state");
-                    boolean paid = state.equalsIgnoreCase("complete");
+                    boolean paid = state.equalsIgnoreCase("paid");
 
                     boolean tableExists = false;
                     for (Table table : CtrlTables.tableList) {
@@ -153,6 +153,50 @@ public class DatabaseManager {
         }
     }
 
+    public static void changeTag(int orderID, int idProduct, String newState) {
+        String query = "UPDATE Command_details SET state = ? WHERE id_command = ? and id_products = ?";
+        if (newState != null) {
+            try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+                 PreparedStatement stmt = conn.prepareStatement(query)) {
+
+                // Establecer los parámetros de la consulta
+                stmt.setString(1, newState);
+                stmt.setInt(2, orderID);
+                stmt.setInt(3, idProduct);
+
+                // Ejecutar la consulta
+                int rowsUpdated = stmt.executeUpdate();
+                if (rowsUpdated > 0) {
+                    System.out.println("Product state updated successfully in the database.");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.err.println("Error updating product state in database: " + e.getMessage());
+            }
+        }
+    }
+
+    public static void changeOrderTag(int orderID, String newState) {
+        String query = "UPDATE Command SET state = ? WHERE id = ? ";
+        if (newState != null) {
+            try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+                 PreparedStatement stmt = conn.prepareStatement(query)) {
+
+                // Establecer los parámetros de la consulta
+                stmt.setString(1, newState);
+                stmt.setInt(2, orderID);
+
+                // Ejecutar la consulta
+                int rowsUpdated = stmt.executeUpdate();
+                if (rowsUpdated > 0) {
+                    System.out.println("Order state updated successfully in the database.");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.err.println("Error updating Order state in database: " + e.getMessage());
+            }
+        }
+    }
 
 
 }

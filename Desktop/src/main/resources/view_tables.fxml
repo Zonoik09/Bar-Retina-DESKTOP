@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: F5F5DC;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.CtrlTables">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: F5F5DC;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.CtrlTables">
    <children>
       <ImageView fx:id="back_arrow" fitHeight="77.0" fitWidth="54.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#go_back" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -32,9 +32,12 @@
             <TableColumn fx:id="tableColumn" prefWidth="227.0" text="Table" />
             <TableColumn fx:id="idOrderColumn" prefWidth="236.0" text="ID Order" />
             <TableColumn fx:id="waiterColumn" prefWidth="248.0" text="Waiter" />
-            <TableColumn fx:id="paidColumn" prefWidth="211.0" text="Paid" />
-            <TableColumn fx:id="freeColumn" prefWidth="182.0" text="Free" />
+            <TableColumn fx:id="paidColumn" prefWidth="194.0" text="Paid" />
+            <TableColumn fx:id="freeColumn" prefWidth="172.0" text="Free" />
          </columns>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </TableView>
    </children>
 </AnchorPane>

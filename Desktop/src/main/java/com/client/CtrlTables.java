@@ -51,7 +51,8 @@ public class CtrlTables {
 
 
     private void setupTableColumns() {
-        // Configuración de columnas
+        tableView.setStyle("-fx-font-size: 17px;");
+
         tableColumn.setCellValueFactory(new PropertyValueFactory<>("table"));
         idOrderColumn.setCellValueFactory(new PropertyValueFactory<>("idOrder"));
         waiterColumn.setCellValueFactory(new PropertyValueFactory<>("waiter"));

@@ -38,40 +38,17 @@ public class CtrlOrders {
         listViewOrders.setOnMouseClicked(event -> {
             viewDetallOrder(event);
         });
+        // Cambiar tamaño de letra del listViewOrders
+        listViewOrders.setStyle("-fx-font-size: 18px;");
+
+        // Cambiar tamaño de letra del listviewOrder
+        listviewOrder.setStyle("-fx-font-size: 18px;");
 
     }
 
     public void go_back(MouseEvent mouseEvent) {
         UtilsViews.setView("MainView");
     }
-
-//    public void DeleteButton(ActionEvent actionEvent) {
-//        // Obtener el elemento seleccionado
-//        String selectedItem = listViewOrders.getSelectionModel().getSelectedItem();
-//        if (selectedItem != null) {
-//            // Eliminar el elemento seleccionado de la lista
-//            listViewOrders.getItems().remove(selectedItem);
-//            Main.showAlert("ALERT","Removed: "+selectedItem);
-//
-//            // Deshabilitar los botones después de eliminar el elemento
-//            deleteButton.setDisable(true);
-//            payButton.setDisable(true);
-//        }
-//    }
-//
-//
-//    public void FinalizeAndPay(ActionEvent actionEvent) {
-//        String selectedItem = listViewOrders.getSelectionModel().getSelectedItem();
-//        if (selectedItem != null) {
-//            listViewOrders.getItems().remove(selectedItem);
-//            Main.showAlert("INFORMATION","Paid and removed: "+selectedItem);
-//
-//            // Deshabilitar los botones después de procesar el pago y eliminar el elemento
-//            deleteButton.setDisable(true);
-//            payButton.setDisable(true);
-//        }
-//    }
-
 
     public static void addListView() {
         // Obtener el texto de las órdenes
