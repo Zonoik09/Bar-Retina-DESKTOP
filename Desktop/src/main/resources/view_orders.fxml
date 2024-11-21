@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: F5F5DC;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.CtrlOrders">
+   <children>
+      <ImageView fx:id="back_arrow" fitHeight="77.0" fitWidth="54.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#go_back" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@back_arrow.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <AnchorPane layoutX="34.0" layoutY="81.0" prefHeight="364.0" prefWidth="260.0" style="-fx-background-color: #333333;">
+         <children>
+            <ScrollPane prefHeight="365.0" prefWidth="260.0">
+               <content>
+                  <ListView fx:id="listViewOrders" prefHeight="362.0" prefWidth="257.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ListView>
+               </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="324.0" layoutY="88.0" prefHeight="537.0" prefWidth="934.0" style="-fx-background-color: #333333;">
+         <children>
+            <ScrollPane layoutX="-8.0" layoutY="-7.0" prefHeight="547.0" prefWidth="942.0">
+               <content>
+                  <ListView fx:id="listviewOrder" prefHeight="543.0" prefWidth="940.0" />
+               </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
+      <Label layoutX="505.0" layoutY="3.0" text="ORDERS">
+         <font>
+            <Font name="Verdana Bold Italic" size="58.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="315.0" layoutY="641.0" prefHeight="54.0" prefWidth="942.0" style="-fx-background-color: #333333; -fx-background-radius: 20px;">
+         <children>
+            <Label layoutX="508.0" layoutY="10.0" text="TOTAL:" textFill="WHITE">
+               <font>
+                  <Font name="Verdana Bold" size="27.0" />
+               </font>
+            </Label>
+            <Text fx:id="totalToPay" fill="#fffdd0" layoutX="742.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="###.##€" textAlignment="RIGHT" wrappingWidth="179.10009765625">
+               <font>
+                  <Font name="Verdana" size="23.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="34.0" layoutY="459.0" prefHeight="238.0" prefWidth="260.0" style="-fx-background-color: #333333;">
+         <children>
+            <Label layoutX="21.0" layoutY="22.0" text="WAITER" textFill="WHITE">
+               <font>
+                  <Font name="Verdana Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="25.0" layoutY="100.0" text="DATE" textFill="WHITE">
+               <font>
+                  <Font name="Verdana Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="25.0" layoutY="169.0" text="STATE" textFill="WHITE">
+               <font>
+                  <Font name="Verdana Bold" size="18.0" />
+               </font>
+            </Label>
+            <Text fx:id="setWaiterText" fill="#fffdd0" layoutX="47.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="...">
+               <font>
+                  <Font name="Verdana" size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="setDateText" fill="#fffdd0" layoutX="51.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="...">
+               <font>
+                  <Font name="Verdana" size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="setStateText" fill="#fffdd0" layoutX="51.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="...">
+               <font>
+                  <Font name="Verdana" size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
