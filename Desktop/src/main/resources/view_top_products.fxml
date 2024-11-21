@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: F5F5DC;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.CtrlProductsTop">
+   <children>
+      <ImageView fx:id="back_arrow" fitHeight="77.0" fitWidth="54.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#go_back" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@back_arrow.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <Label layoutX="387.0" layoutY="14.0" text="TOP PRODUCTS">
+         <font>
+            <Font name="Verdana Bold Italic" size="58.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="18.0" layoutY="158.0" prefHeight="372.0" prefWidth="238.0" style="-fx-background-color: #333333;">
+         <children>
+            <ImageView fx:id="img1" fitHeight="136.0" fitWidth="164.0" layoutX="38.0" layoutY="14.0" pickOnBounds="true">
+               <image>
+                  <Image url="@productTop.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="name1" fill="WHITE" layoutX="24.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Grilled Turkey Breast with Quinoa and Sauteed Vegetables" textAlignment="CENTER" wrappingWidth="191.0">
+               <font>
+                  <Font name="Verdana Bold" size="16.0" />
+               </font>
+            </Text>
+            <Text fx:id="description1" fill="WHITE" layoutX="24.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Juicy beef steak served with mashed potatoes and grilled vegetables" textAlignment="CENTER" wrappingWidth="191.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Text fx:id="price1" fill="WHITE" layoutX="24.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="precio" textAlignment="CENTER" wrappingWidth="191.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="272.0" layoutY="158.0" prefHeight="372.0" prefWidth="238.0" style="-fx-background-color: #333333;">
+         <children>
+            <ImageView fx:id="img2" fitHeight="136.0" fitWidth="164.0" layoutX="38.0" layoutY="14.0" pickOnBounds="true">
+               <image>
+                  <Image url="@productTop.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="name2" fill="WHITE" layoutX="24.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Grilled Turkey Breast with Quinoa and Sauteed Vegetables" textAlignment="CENTER" wrappingWidth="191.0">
+               <font>
+                  <Font name="Verdana Bold" size="16.0" />
+               </font>
+            </Text>
+            <Text fx:id="description2" fill="WHITE" layoutX="24.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Juicy beef steak served with mashed potatoes and grilled vegetables" textAlignment="CENTER" wrappingWidth="191.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Text fx:id="price2" fill="WHITE" layoutX="24.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="precio" textAlignment="CENTER" wrappingWidth="191.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="525.0" layoutY="158.0" prefHeight="372.0" prefWidth="238.0" style="-fx-background-color: #333333;">
+         <children>
+            <ImageView fx:id="img3" fitHeight="136.0" fitWidth="164.0" layoutX="38.0" layoutY="14.0" pickOnBounds="true">
+               <image>
+                  <Image url="@productTop.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="name3" fill="WHITE" layoutX="24.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Grilled Turkey Breast with Quinoa and Sauteed Vegetables" textAlignment="CENTER" wrappingWidth="191.0">
+               <font>
+                  <Font name="Verdana Bold" size="16.0" />
+               </font>
+            </Text>
+            <Text fx:id="description3" fill="WHITE" layoutX="24.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Juicy beef steak served with mashed potatoes and grilled vegetables" textAlignment="CENTER" wrappingWidth="191.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Text fx:id="price3" fill="WHITE" layoutX="24.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="precio" textAlignment="CENTER" wrappingWidth="191.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="776.0" layoutY="157.0" prefHeight="372.0" prefWidth="238.0" style="-fx-background-color: #333333;">
+         <children>
+            <ImageView fx:id="img4" fitHeight="136.0" fitWidth="164.0" layoutX="38.0" layoutY="14.0" pickOnBounds="true">
+               <image>
+                  <Image url="@productTop.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="name4" fill="WHITE" layoutX="24.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Grilled Turkey Breast with Quinoa and Sauteed Vegetables" textAlignment="CENTER" wrappingWidth="191.0">
+               <font>
+                  <Font name="Verdana Bold" size="16.0" />
+               </font>
+            </Text>
+            <Text fx:id="description4" fill="WHITE" layoutX="24.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Juicy beef steak served with mashed potatoes and grilled vegetables" textAlignment="CENTER" wrappingWidth="191.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Text fx:id="price4" fill="WHITE" layoutX="24.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="precio" textAlignment="CENTER" wrappingWidth="191.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="1028.0" layoutY="157.0" prefHeight="372.0" prefWidth="238.0" style="-fx-background-color: #333333;">
+         <children>
+            <ImageView fx:id="img5" fitHeight="136.0" fitWidth="164.0" layoutX="38.0" layoutY="14.0" pickOnBounds="true">
+               <image>
+                  <Image url="@productTop.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="name5" fill="WHITE" layoutX="24.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Grilled Turkey Breast with Quinoa and Sauteed Vegetables" textAlignment="CENTER" wrappingWidth="191.0">
+               <font>
+                  <Font name="Verdana Bold" size="16.0" />
+               </font>
+            </Text>
+            <Text fx:id="description5" fill="WHITE" layoutX="24.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Juicy beef steak served with mashed potatoes and grilled vegetables" textAlignment="CENTER" wrappingWidth="191.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Text fx:id="price5" fill="WHITE" layoutX="24.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="precio" textAlignment="CENTER" wrappingWidth="191.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <Text layoutX="68.0" layoutY="610.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1st">
+         <font>
+            <Font name="Verdana Bold" size="68.0" />
+         </font>
+      </Text>
+      <Text layoutX="329.0" layoutY="612.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2nd">
+         <font>
+            <Font name="Verdana Bold" size="68.0" />
+         </font>
+      </Text>
+      <Text layoutX="581.0" layoutY="612.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3rd">
+         <font>
+            <Font name="Verdana Bold" size="68.0" />
+         </font>
+      </Text>
+      <Text layoutX="822.0" layoutY="613.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4th">
+         <font>
+            <Font name="Verdana Bold" size="68.0" />
+         </font>
+      </Text>
+      <Text layoutX="1085.0" layoutY="613.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5th">
+         <font>
+            <Font name="Verdana Bold" size="68.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

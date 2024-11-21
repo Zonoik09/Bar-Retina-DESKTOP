@@ -1,20 +1,18 @@
 package com.client;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+import java.text.DecimalFormat;
+import java.util.List;
+
+import static com.client.DatabaseManager.getOrder;
+import static com.client.DatabaseManager.getOrders;
 
 public class CtrlOrders {
 
@@ -26,70 +24,79 @@ public class CtrlOrders {
     public Text totalToPay;
     @FXML
     public ImageView back_arrow;
+    public static CtrlOrders instance;
     @FXML
-    public Button deleteButton;
+    public Text setWaiterText;
     @FXML
-    public Button payButton;
+    public Text setDateText;
+    @FXML
+    public Text setStateText;
 
     public void initialize() {
-        addListView("Table 23", "order 245",LocalTime.now());
-        addListView("Table 13", "order 242",LocalTime.now());
-        deleteButton.setDisable(true);
-        payButton.setDisable(true);
-        // Agregar un listener para detectar cambios en la selección
-        listViewOrders.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                deleteButton.setDisable(false);
-                payButton.setDisable(false);
-            }
+        instance = this;
+        addListView();
+        listViewOrders.setOnMouseClicked(event -> {
+            viewDetallOrder(event);
         });
+        // Cambiar tamaño de letra del listViewOrders
+        listViewOrders.setStyle("-fx-font-size: 18px;");
+
+        // Cambiar tamaño de letra del listviewOrder
+        listviewOrder.setStyle("-fx-font-size: 18px;");
+
     }
 
     public void go_back(MouseEvent mouseEvent) {
         UtilsViews.setView("MainView");
     }
 
-    public void DeleteButton(ActionEvent actionEvent) {
-        // Obtener el elemento seleccionado
-        String selectedItem = listViewOrders.getSelectionModel().getSelectedItem();
-        if (selectedItem != null) {
-            // Eliminar el elemento seleccionado de la lista
-            listViewOrders.getItems().remove(selectedItem);
-            Main.showAlert("ALERT","Removed: "+selectedItem);
+    public static void addListView() {
+        // Obtener el texto de las órdenes
+        ObservableList<String> items = getOrders();
+        instance.listViewOrders.setItems(items);
+    }
 
-            // Deshabilitar los botones después de eliminar el elemento
-            deleteButton.setDisable(true);
-            payButton.setDisable(true);
+
+    public static void viewDetallOrder(MouseEvent mouseEvent) {
+        try {
+            String selectedItem = instance.listViewOrders.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                String[] parts = selectedItem.split(":");
+                parts[1] = parts[1].trim();
+                String[] tableid = parts[0].split(" ");
+                String[] orderid = parts[1].split(" ");
+                getOrder(Integer.parseInt(tableid[1]), orderid[1]);
+            } else {
+                System.err.println("No item selected");
+            }
+        } catch (Exception e) {
+            System.err.println("Error processing selected item: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
 
-    public void FinalizeAndPay(ActionEvent actionEvent) {
-        String selectedItem = listViewOrders.getSelectionModel().getSelectedItem();
-        if (selectedItem != null) {
-            listViewOrders.getItems().remove(selectedItem);
-            Main.showAlert("INFORMATION","Paid and removed: "+selectedItem);
-
-            // Deshabilitar los botones después de procesar el pago y eliminar el elemento
-            deleteButton.setDisable(true);
-            payButton.setDisable(true);
+    public static void setOrder(Orders order) {
+        instance.setWaiterText.setText(order.getWaiter());
+        instance.setStateText.setText(order.getStateOrder());
+        instance.setDateText.setText((order.getDate()+" "+order.getHour()));
+        instance.listviewOrder.getItems().clear();
+        ObservableList<String> items = instance.listviewOrder.getItems();
+        List<String> products = order.getProducts();
+        List<Float> prices = order.getPrices();
+        DecimalFormat df = new DecimalFormat("0.00");
+        float sum = 0;
+        for (int i = 0; i < products.size(); i++) {
+            String product = products.get(i);
+            Float price = prices.get(i);
+            String priceText = df.format(prices.get(i));
+            String itemText = String.format("%s : %s €", product, priceText);
+            items.add(itemText);
+            sum+=price;
         }
+        instance.totalToPay.setText(df.format(sum) + "€");
+
+        instance.listviewOrder.setItems(items);
     }
-
-
-    public void addListView(String table, String comanda, LocalTime hora) {
-        // Formatear la hora actual
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        String horas = hora.format(formatter);
-
-        // Crear el texto a mostrar en el ListView
-        String itemText = String.format("%s : %-30s %s", table, comanda, horas);
-
-        // Obtener los elementos actuales del ListView y añadir el nuevo elemento
-        ObservableList<String> items = listViewOrders.getItems();
-        items.add(itemText);
-        listViewOrders.setItems(items);
-    }
-
 
 }

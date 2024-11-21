@@ -4,11 +4,14 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 import org.json.JSONObject;
 import org.w3c.dom.Document;
@@ -32,9 +35,7 @@ public class CtrlMain {
     private ComboBox<String> itemBox;
     @FXML
     private ListView<String> listView;
-    // Variable para rastrear el tipo de solicitud actual
     private String requestType = "";
-    // Referencia estática de la instancia de CtrlMain para acceder desde métodos estáticos
     private static CtrlMain instance;
     private static ArrayList<Element> productes = new ArrayList<>();
 
@@ -129,16 +130,11 @@ public class CtrlMain {
     public void goOrders(MouseEvent mouseEvent) throws Exception {
         UtilsViews.addView(CtrlLogin.class, "OrdersView", "/view_orders.fxml");
         UtilsViews.setView("OrdersView");
-        System.out.println("Cambiando de vista...");
-        System.out.println(UtilsViews.getActiveView());
     }
 
-//    public void addPanel(String title, String comanda, LocalTime hora) {
-//        LocalTime horaActual = LocalTime.now();
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-//        String horas = horaActual.format(formatter);
-//        TitledPane newPane = new TitledPane(String.format("%s : %-50s %s", title, comanda, horas), null );
-//        accordion.getPanes().add(newPane);
-//    }
+    public void go_tables(MouseEvent mouseEvent) throws Exception {
+        UtilsViews.addView(CtrlLogin.class, "tablesView", "/view_tables.fxml");
+        UtilsViews.setView("tablesView");
+    }
 
 }

@@ -36,15 +36,66 @@
                         <Font name="Verdana Bold Italic" size="62.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="ordersImg" fitHeight="105.0" fitWidth="78.0" layoutX="845.0" layoutY="36.0" onMouseClicked="#goOrders" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../data/icon_cesta.png" />
-                     </image>
+                  <AnchorPane layoutX="53.0" layoutY="198.0" onMouseClicked="#go_tables" prefHeight="387.0" prefWidth="256.0" style="-fx-background-color: #333333; -fx-background-radius: 10px;">
+                     <children>
+                        <ImageView fx:id="img_table" fitHeight="194.0" fitWidth="176.0" layoutX="40.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icono_mesa.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Label alignment="CENTER" layoutX="40.0" layoutY="263.0" prefHeight="100.0" prefWidth="176.0" text="TABLES" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana Bold Italic" size="40.0" />
+                           </font>
+                        </Label>
+                     </children>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
-                  </ImageView>
-                  <AnchorPane fx:id="anchorPaneProducts" layoutX="28.0" layoutY="129.0" prefHeight="585.0" prefWidth="909.0" style="-fx-background-color: #333333;" />
+                  </AnchorPane>
+                  <AnchorPane layoutX="353.0" layoutY="198.0" onMouseClicked="#goOrders" prefHeight="387.0" prefWidth="256.0" style="-fx-background-color: #333333; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: black;">
+                     <children>
+                        <ImageView fx:id="ordersImg" fitHeight="182.0" fitWidth="210.0" layoutX="39.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icon_cesta.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Label alignment="CENTER" layoutX="23.0" layoutY="285.0" prefHeight="57.0" prefWidth="210.0" text="ORDERS" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana Bold Italic" size="40.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </AnchorPane>
+                  <AnchorPane layoutX="651.0" layoutY="198.0" onMouseClicked="#goTopProducts" prefHeight="387.0" prefWidth="256.0" style="-fx-background-color: #333333; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: black;">
+                     <children>
+                        <ImageView fx:id="topProducts" fitHeight="182.0" fitWidth="210.0" layoutX="39.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@productTop.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Label alignment="CENTER" layoutX="30.0" layoutY="285.0" prefHeight="57.0" prefWidth="210.0" text="ORDERS" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana Bold Italic" size="40.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </AnchorPane>
                </children>
             </AnchorPane>
          </children>

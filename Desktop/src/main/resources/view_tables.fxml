@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: F5F5DC;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.CtrlTables">
+   <children>
+      <ImageView fx:id="back_arrow" fitHeight="77.0" fitWidth="54.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#go_back" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@back_arrow.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <Label layoutX="534.0" layoutY="3.0" text="Tables">
+         <font>
+            <Font name="Verdana Bold Italic" size="58.0" />
+         </font>
+      </Label>
+
+      <!-- Cambio de ListView a TableView -->
+      <TableView fx:id="tableView" layoutX="88.0" layoutY="97.0" prefHeight="579.0" prefWidth="1105.0">
+         <!-- Aquí se deben definir las columnas de la tabla -->
+         <columns>
+            <TableColumn fx:id="tableColumn" prefWidth="227.0" text="Table" />
+            <TableColumn fx:id="idOrderColumn" prefWidth="236.0" text="ID Order" />
+            <TableColumn fx:id="waiterColumn" prefWidth="248.0" text="Waiter" />
+            <TableColumn fx:id="paidColumn" prefWidth="194.0" text="Paid" />
+            <TableColumn fx:id="freeColumn" prefWidth="172.0" text="Free" />
+         </columns>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </TableView>
+   </children>
+</AnchorPane>
