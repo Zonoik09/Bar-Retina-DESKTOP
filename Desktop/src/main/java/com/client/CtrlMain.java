@@ -137,4 +137,8 @@ public class CtrlMain {
         UtilsViews.setView("tablesView");
     }
 
+    public void goTopProducts(MouseEvent mouseEvent) throws Exception{
+        UtilsViews.addView(CtrlLogin.class, "topProductsView","/view_top_products.fxml");
+        UtilsViews.setView("topProductsView");
+    }
 }

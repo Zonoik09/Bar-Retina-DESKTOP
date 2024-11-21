@@ -5,6 +5,9 @@ import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import org.json.JSONObject;
+
+import java.util.jar.Attributes;
 
 import static com.client.DatabaseManager.getTopProducts;
 
@@ -73,11 +76,20 @@ public class CtrlProductsTop {
                 System.out.println(product);
                 String[] productPart = product.split(":");
                 String NameProduct = productPart[0];
-                String quantity = productPart[1];
+                String[] quantity = productPart[1].trim().split(" ");
+                System.out.println(NameProduct + " - " + quantity[0]);
+
                 // Tengo que cargar el XML, y cuando este cargado, coger la description del producto y el price. La imagen tiene que pasarse desde el servidor al cliente como base64
             }
         }
 
+    }
+
+    private void sendRequest(String type,String msg) {
+        JSONObject message = new JSONObject();
+        message.put("type", type);
+        message.put("message", msg);
+        CtrlLogin.wsClient.safeSend(message.toString());
     }
 
 }

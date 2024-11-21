@@ -14,7 +14,7 @@ import static com.client.CtrlOrders.setOrder;
 public class DatabaseManager {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/barretina2";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = ""; // borro la contra porque si es local cada uno tiene una
+    private static final String DB_PASSWORD = "1234";
 
     public static void getDetailedOrder(int tableId, String ordersId) {
         String selectOrderQuery = "SELECT C.id AS order_id, C.tableid AS table_id, C.waiter, C.hour, Cd.product_name, Cd.price, Cd.state FROM orders C JOIN order_details Cd ON C.id = Cd.id_order WHERE C.tableid = ? AND C.id = ?;";
@@ -201,7 +201,7 @@ public class DatabaseManager {
                 "FROM order_details " +
                 "GROUP BY product_name " +
                 "ORDER BY order_count DESC " +
-                "LIMIT 8;";
+                "LIMIT 5;";
         ObservableList<String> topProductsList = FXCollections.observableArrayList();
 
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
