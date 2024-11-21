@@ -81,7 +81,7 @@ public class CtrlLogin {
     }
 
     public static void connectToServer(String URL){
-        wsClient = UtilsWS.getSharedInstance("wss://"+URL);
+        wsClient = UtilsWS.getSharedInstance("ws://"+URL);
 
         wsClient.onMessage(CtrlLogin::wsMessage);
         wsClient.onError(CtrlLogin::wsError);
@@ -102,7 +102,7 @@ public class CtrlLogin {
     }
 
 
-    private static void wsMessage(String response) {
+    public static void wsMessage(String response) {
         JSONObject msgObj = new JSONObject(response);
         switch (msgObj.getString("type")) {
             case "products":

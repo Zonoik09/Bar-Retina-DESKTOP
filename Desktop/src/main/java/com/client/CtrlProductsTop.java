@@ -2,12 +2,15 @@ package com.client;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.jar.Attributes;
+import java.io.ByteArrayInputStream;
+import java.util.Base64;
 
 import static com.client.DatabaseManager.getTopProducts;
 
@@ -61,9 +64,9 @@ public class CtrlProductsTop {
     public Text price5;
 
     public void initialize() {
+        CtrlLogin.wsClient.onMessage(this::onMessageReceived);
         getInfo();
     }
-
 
     public void go_back(MouseEvent mouseEvent) {
         UtilsViews.setView("MainView");
@@ -71,25 +74,97 @@ public class CtrlProductsTop {
 
     public void getInfo() {
         ObservableList<String> topProducts = getTopProducts();
-        if (!topProducts.equals(null)) {
-            for (String product : topProducts) {
-                System.out.println(product);
-                String[] productPart = product.split(":");
-                String NameProduct = productPart[0];
-                String[] quantity = productPart[1].trim().split(" ");
-                System.out.println(NameProduct + " - " + quantity[0]);
-
-                // Tengo que cargar el XML, y cuando este cargado, coger la description del producto y el price. La imagen tiene que pasarse desde el servidor al cliente como base64
-            }
+        if (topProducts != null && !topProducts.isEmpty()) {
+            // Solicitar los productos con la imagen en Base64
+            sendRequest("productswithimage");
         }
-
     }
 
-    private void sendRequest(String type,String msg) {
+    private void sendRequest(String type) {
         JSONObject message = new JSONObject();
         message.put("type", type);
-        message.put("message", msg);
+        message.put("message", type);
         CtrlLogin.wsClient.safeSend(message.toString());
+    }
+
+    private void onMessageReceived(String message) {
+        // El mensaje debe estar en formato JSON
+        JSONObject msg = new JSONObject(message);
+        if ("productswithimage".equals(msg.getString("type"))) {
+            // Obtener los productos con imagenes
+            JSONArray products = msg.getJSONArray("message");
+
+            // Actualizar la UI con la información de los productos
+            updateProductUI(products);
+        }
+    }
+
+    private void updateProductUI(JSONArray products) {
+        // Asumimos que siempre habrá al menos 5 productos
+        for (int i = 0; i < 5 && i < products.length(); i++) {
+            JSONObject product = products.getJSONObject(i);
+
+            // Extraer la información del producto
+            String name = product.getString("name");
+            String description = product.getString("description");
+            String price = product.getString("price");
+
+            // Establecer los valores en los Texts
+            switch (i) {
+                case 0:
+                    name1.setText(name);
+                    description1.setText(description);
+                    price1.setText(price);
+                    loadImageToView(img1, product.getString("image"));
+                    break;
+                case 1:
+                    name2.setText(name);
+                    description2.setText(description);
+                    price2.setText(price);
+                    loadImageToView(img2, product.getString("image"));
+                    break;
+                case 2:
+                    name3.setText(name);
+                    description3.setText(description);
+                    price3.setText(price);
+                    loadImageToView(img3, product.getString("image"));
+                    break;
+                case 3:
+                    name4.setText(name);
+                    description4.setText(description);
+                    price4.setText(price);
+                    loadImageToView(img4, product.getString("image"));
+                    break;
+                case 4:
+                    name5.setText(name);
+                    description5.setText(description);
+                    price5.setText(price);
+                    loadImageToView(img5, product.getString("image"));
+                    break;
+            }
+        }
+    }
+
+    // Cargar la imagen Base64 al ImageView
+    private void loadImageToView(ImageView imageView, String base64Image) {
+        try {
+            base64Image = base64Image.replaceAll("\\s", "");
+            // Intentar decodificar la imagen en Base64
+            byte[] imageBytes = Base64.getDecoder().decode(base64Image);
+            // Crear una imagen a partir de los bytes decodificados
+            Image image = new Image(new ByteArrayInputStream(imageBytes));
+            // Asignar la imagen al ImageView
+            imageView.setImage(image);
+        } catch (IllegalArgumentException e) {
+            // Manejo de error si la cadena Base64 no es válida
+            System.err.println("Error decoding Base64 image: " + e.getMessage());
+            e.printStackTrace();
+            imageView.setImage(new Image("path/to/default_image.png"));
+        } catch (Exception e) {
+            System.err.println("Error loading image: " + e.getMessage());
+            e.printStackTrace();
+            imageView.setImage(new Image("path/to/default_image.png"));
+        }
     }
 
 }
