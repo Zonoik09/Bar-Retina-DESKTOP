@@ -99,6 +99,7 @@ public class CtrlTables {
                 try {
                     getDetailedOrder(Integer.parseInt(table), orderId);
                     UtilsViews.setView("detailOrder");
+                    CtrlOrderDetails.instance.initialize();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

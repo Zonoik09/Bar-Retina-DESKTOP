@@ -114,31 +114,31 @@ public class CtrlProductsTop {
                 case 0:
                     name1.setText(name);
                     description1.setText(description);
-                    price1.setText(price);
+                    price1.setText(price+"€");
                     loadImageToView(img1, product.getString("image"));
                     break;
                 case 1:
                     name2.setText(name);
                     description2.setText(description);
-                    price2.setText(price);
+                    price2.setText(price+"€");
                     loadImageToView(img2, product.getString("image"));
                     break;
                 case 2:
                     name3.setText(name);
                     description3.setText(description);
-                    price3.setText(price);
+                    price3.setText(price+"€");
                     loadImageToView(img3, product.getString("image"));
                     break;
                 case 3:
                     name4.setText(name);
                     description4.setText(description);
-                    price4.setText(price);
+                    price4.setText(price+"€");
                     loadImageToView(img4, product.getString("image"));
                     break;
                 case 4:
                     name5.setText(name);
                     description5.setText(description);
-                    price5.setText(price);
+                    price5.setText(price+"€");
                     loadImageToView(img5, product.getString("image"));
                     break;
             }
@@ -149,21 +149,15 @@ public class CtrlProductsTop {
     private void loadImageToView(ImageView imageView, String base64Image) {
         try {
             base64Image = base64Image.replaceAll("\\s", "");
-            // Intentar decodificar la imagen en Base64
             byte[] imageBytes = Base64.getDecoder().decode(base64Image);
-            // Crear una imagen a partir de los bytes decodificados
             Image image = new Image(new ByteArrayInputStream(imageBytes));
-            // Asignar la imagen al ImageView
             imageView.setImage(image);
         } catch (IllegalArgumentException e) {
-            // Manejo de error si la cadena Base64 no es válida
             System.err.println("Error decoding Base64 image: " + e.getMessage());
             e.printStackTrace();
-            imageView.setImage(new Image("path/to/default_image.png"));
         } catch (Exception e) {
             System.err.println("Error loading image: " + e.getMessage());
             e.printStackTrace();
-            imageView.setImage(new Image("path/to/default_image.png"));
         }
     }
 

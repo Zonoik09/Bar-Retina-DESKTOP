@@ -7,17 +7,22 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
 import java.text.DecimalFormat;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static com.client.DatabaseManager.changeOrderTag;
 import static com.client.DatabaseManager.changeTag;
+import static javafx.geometry.Pos.CENTER_LEFT;
 
 public class CtrlOrderDetails {
 
@@ -45,17 +50,41 @@ public class CtrlOrderDetails {
     private Text orderText;
     @FXML
     private Text waiterName;
-    private static CtrlOrderDetails instance;
+    public static CtrlOrderDetails instance;
     private float sum2 = 0;
     private float sum = 0;
     private float sum1 = 0;
-
+    public static final Map<String, String> productImages = new HashMap<>();
 
     @FXML
     public void initialize() {
+        System.out.println("Cargando initialize");
         instance = this;
         completeOrderButton.setDisable(true);
         instance.paybutton.setDisable(true);
+        System.out.println(UtilsViews.getActiveView().equals("detailOrder"));
+        if (UtilsViews.getActiveView().equals("detailOrder")) {
+            requestProductImages();
+            CtrlLogin.wsClient.onMessage(this::onMessageReceived);
+        }
+    }
+
+    private void requestProductImages() {
+        JSONObject message = new JSONObject();
+        message.put("type", "productswithimage");
+        message.put("message", "productswithimage");
+        CtrlLogin.wsClient.safeSend(message.toString());
+    }
+
+    private void onMessageReceived(String message) {
+        JSONObject msg = new JSONObject(message);
+        if ("productswithimage".equals(msg.getString("type"))) {
+            JSONArray products = msg.getJSONArray("message");
+            for (int i = 0; i < products.length(); i++) {
+                JSONObject product = products.getJSONObject(i);
+                productImages.put(product.getString("name"), product.getString("image"));
+            }
+        }
     }
 
 
@@ -95,9 +124,25 @@ public class CtrlOrderDetails {
                 instance.vBoxState.getChildren().add(stateComboBox);
 
                 // Creacion de los checkBox
-                CheckBox checkBox = new CheckBox(products.get(i));
+                CheckBox checkBox = new CheckBox();
                 checkBox.setStyle("-fx-font-size: 18px; -fx-padding: 5px;");
+                HBox hbox = new HBox(10);
+                hbox.setAlignment(CENTER_LEFT);
+
+                ImageView imageView = new ImageView();
+                imageView.setFitHeight(30);
+                imageView.setFitWidth(30);
+                String base64Image = productImages.get(products.get(i));
+                if (base64Image != null) {
+                    instance.loadImageToView(imageView,base64Image);
+                }
+                Label text = new Label(products.get(i));
+                text.setStyle("-fx-font-size: 18px;");
+
+                hbox.getChildren().addAll(imageView, text);
+                checkBox.setGraphic(hbox);
                 instance.vBoxProducts.getChildren().add(checkBox);
+
                 if (Objects.equals(states.get(i),"Paid")) {
                     checkBox.setDisable(true);
                 }
@@ -117,7 +162,7 @@ public class CtrlOrderDetails {
                 stateComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
                 if ("Ready".equals(newValue)) {
                     String productName = products.get(productIndex);
-                    instance.sendRequest("ready", "Product: " + productName + " in table " + order.getTableID() + "is ready.");
+                    instance.sendRequest("ready", "Product: " + productName + " in table " + order.getTableID() + " is ready.");
                 }
                     String productName = products.get(productIndex);
                     changeTag(Integer.parseInt(order.getOrderID()),productIndex+1,stateComboBox.getValue());
@@ -161,7 +206,6 @@ public class CtrlOrderDetails {
         }
     }
 
-
     private void sendRequest(String type,String msg) {
         JSONObject message = new JSONObject();
         message.put("type", type);
@@ -169,7 +213,8 @@ public class CtrlOrderDetails {
         CtrlLogin.wsClient.safeSend(message.toString());
     }
 
-    public void go_back(MouseEvent mouseEvent) {
+    public void go_back(MouseEvent mouseEvent) throws Exception {
+        UtilsViews.addView(CtrlLogin.class, "tablesView", "/view_tables.fxml");
         UtilsViews.setView("tablesView");
     }
 
@@ -243,4 +288,21 @@ public class CtrlOrderDetails {
     public void completeOrder(ActionEvent actionEvent) {
         changeOrderTag(Integer.parseInt(orderText.getText()),"complete");
     }
+
+    // Cargar la imagen Base64 al ImageView
+    private void loadImageToView(ImageView imageView, String base64Image) {
+        try {
+            base64Image = base64Image.replaceAll("\\s", "");
+            byte[] imageBytes = Base64.getDecoder().decode(base64Image);
+            Image image = new Image(new ByteArrayInputStream(imageBytes));
+            imageView.setImage(image);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error decoding Base64 image: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Error loading image: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
 }
